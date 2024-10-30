@@ -12,7 +12,7 @@ public class showRoomController {
     @GetMapping("/")
     public String helloShowRoom() {
         log.info("showRoomController controller called");
-        return "Hello Elm!!";
+        return "Hello!!";
     }
     
 }
