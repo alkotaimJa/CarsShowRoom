@@ -39,6 +39,21 @@ public class CarShowroom {
     @Size(max = 255, message = "Address must not exceed 255 characters")
     private String address;
 
+    private boolean deleted;
+
+    // constructor
+    public CarShowroom(String name, String commercial_registration_number, String manager_name, String contact_number, String address) {
+        this.name = name;
+        this.commercial_registration_number = commercial_registration_number;
+        this.manager_name = manager_name;
+        this.contact_number = contact_number;
+        this.address = address;
+        this.deleted = false;
+    }
+    // Empty constructor
+    public CarShowroom() {
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -58,6 +73,9 @@ public class CarShowroom {
 
     public String getCommercial_registration_number() {
         return commercial_registration_number;
+    }
+    public boolean getDeleted() {
+        return deleted;
     }
 
     public void setCommercial_registration_number(String commercial_registration_number) {
@@ -86,5 +104,8 @@ public class CarShowroom {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public void setDeleted(boolean Deleted) {
+        this.deleted = Deleted;
     }
 }

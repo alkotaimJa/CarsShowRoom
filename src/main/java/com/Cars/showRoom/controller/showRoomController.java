@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,13 +45,17 @@ public class showRoomController {
     public ResponseEntity<?> getAllShowRooms(Pageable pageable) {
         log.info("List showrooms with pagination and sorting: " + pageable.toString());
         Page<CarShowroomProjection> showroomsPage = showRoomService.getShowrooms(pageable);
-
-        if (showroomsPage.isEmpty()) {
-            throw new ResourceNotFoundException("No showrooms found");
-        }
-
         return new ResponseEntity<>(showroomsPage, HttpStatus.OK);
     }
+
+    // get a spsific show room by commercial registration number
+    @GetMapping("/showroom/{commercial_registration_number}")
+    public ResponseEntity<?> getShowroomById(@PathVariable String commercial_registration_number) {
+        log.info("Get showroom by commercial registration number: " + commercial_registration_number);
+        CarShowroom showroom = showRoomService.getShowroom(commercial_registration_number);
+        return new ResponseEntity<>(showroom, HttpStatus.OK);
+    }
+
 
     // create a show room
     @PostMapping("/showroom")

@@ -12,11 +12,13 @@ import com.Cars.showRoom.projection.CarShowroomProjection;
 @Repository
 public interface CarShowroomRepository extends JpaRepository<CarShowroom, Long> {
 
-    @Query("SELECT cs FROM CarShowroom cs")
+    // altr to make inly non deleted object fetch
+    @Query("SELECT cs FROM CarShowroom cs WHERE cs.deleted = false")
     Page<CarShowroomProjection> findAllShowrooms(Pageable pageable);
 
     @Query("SELECT cs FROM CarShowroom cs WHERE cs.commercial_registration_number = :commercial_registration_number")
     CarShowroom findCarShowroomByCommercialRegistrationNumber(String commercial_registration_number);
+
 }
 
     

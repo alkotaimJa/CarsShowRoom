@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.Cars.showRoom.entity.CarShowroom;
+import com.Cars.showRoom.exception.ResourceNotFoundException;
 import com.Cars.showRoom.projection.CarShowroomProjection;
 import com.Cars.showRoom.repository.CarShowroomRepository;
 
@@ -24,7 +25,11 @@ public class CarShowRoomService {
 
     // get all show rooms
     public Page<CarShowroomProjection> getShowrooms(Pageable pageable) {
-        return carShowroomRepository.findAllShowrooms(pageable);
+        Page<CarShowroomProjection> showroomsPage = carShowroomRepository.findAllShowrooms(pageable);
+        if (showroomsPage.isEmpty()) {
+            throw new ResourceNotFoundException("No showrooms found");
+        }
+        return showroomsPage;
     }
 
     // create a show room
@@ -34,6 +39,15 @@ public class CarShowRoomService {
             throw new ValidationException("Showroom with commercial registration number " + carShowroom.getCommercial_registration_number() + " already exists");
         }
     return carShowroomRepository.save(carShowroom);
+    }
+
+    // get showroom
+    public CarShowroom getShowroom(String commercialRegistrationNumber) {
+        CarShowroom showroom = carShowroomRepository.findCarShowroomByCommercialRegistrationNumber(commercialRegistrationNumber);
+        if (showroom == null) {
+            throw new ResourceNotFoundException("Showroom not found");
+        }
+        return showroom;
     }
 
     
