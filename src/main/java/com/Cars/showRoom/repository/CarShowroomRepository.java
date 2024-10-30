@@ -14,6 +14,9 @@ public interface CarShowroomRepository extends JpaRepository<CarShowroom, Long> 
 
     @Query("SELECT cs FROM CarShowroom cs")
     Page<CarShowroomProjection> findAllShowrooms(Pageable pageable);
+
+    @Query("SELECT cs FROM CarShowroom cs WHERE cs.commercial_registration_number = :commercial_registration_number")
+    CarShowroom findCarShowroomByCommercialRegistrationNumber(String commercial_registration_number);
 }
 
     

@@ -2,7 +2,7 @@
 --liquibase formatted sql
 --changeset AlkotaimJa:1 failOnError=false
 -- Create car table
-CREATE TABLE IF NOT EXISTS car (
+CREATE TABLE car (
     id INT AUTO_INCREMENT PRIMARY KEY,
     vin VARCHAR(25) NOT NULL,
     maker VARCHAR(25) NOT NULL,
