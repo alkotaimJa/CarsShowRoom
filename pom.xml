@@ -92,7 +92,7 @@
 			</activation>
 			<properties>
 				<activatedSpringProperties>dev</activatedSpringProperties>
-				<dataBaseUrl>jdbc:h2:mem:testdb</dataBaseUrl>
+				<dataBaseUrl>jdbc:h2:file:./data/testdb</dataBaseUrl>
 				<maven.test.skip>false</maven.test.skip>
 			</properties>
 		</profile>
