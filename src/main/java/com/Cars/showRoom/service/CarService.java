@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.Cars.showRoom.entity.Car;
+import com.Cars.showRoom.entity.CarShowroom;
 import com.Cars.showRoom.repository.CarRepository;
 import com.Cars.showRoom.repository.CarShowroomRepository;
 
@@ -23,7 +24,8 @@ public class CarService {
     private CarShowroomRepository carShowroomRepository;
 
     public Car createCar(@Valid Car car) {
-        CarShowroomUtils.checkAndReturnShowRoom(car.getCarShowroom().getCommercial_registration_number(), carShowroomRepository);
+        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoom(car.getCarShowroom().getCommercial_registration_number(), carShowroomRepository);
+        car.setCarShowroom(showroom);
         return carRepository.save(car);
     }
 
