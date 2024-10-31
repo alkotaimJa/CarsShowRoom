@@ -1,9 +1,12 @@
 package com.Cars.showRoom.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.Cars.showRoom.DTO.CarShowroomDetailsDTO;
 import com.Cars.showRoom.entity.Car;
 import com.Cars.showRoom.entity.CarShowroom;
 import com.Cars.showRoom.repository.CarRepository;
@@ -23,10 +26,17 @@ public class CarService {
     @Autowired
     private CarShowroomRepository carShowroomRepository;
 
+    // create a car
     public Car createCar(@Valid Car car) {
         CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoom(car.getCarShowroom().getCommercial_registration_number(), carShowroomRepository);
         car.setCarShowroom(showroom);
         return carRepository.save(car);
+    }
+
+    // list cars with show room detailes
+    public Page<CarShowroomDetailsDTO> listCars(Pageable pageable, String vin, String maker, String model, String modelYear, String showroomName,String  contactNumber) {
+        // check if null first
+        return carRepository.findAllWithShowroomDetails(pageable, vin, maker, model, (modelYear), showroomName, contactNumber);
     }
 
     
