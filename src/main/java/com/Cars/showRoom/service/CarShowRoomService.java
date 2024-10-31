@@ -14,6 +14,7 @@ import com.Cars.showRoom.projection.CarShowroomProjection;
 import com.Cars.showRoom.repository.CarShowroomRepository;
 import com.Cars.showRoom.util.CarShowroomUtils;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 
@@ -34,8 +35,8 @@ public class CarShowRoomService {
     }
 
     // create a show room
+    @Transactional
     public CarShowroom createShowroom(@Valid CarShowroom carShowroom) {
-        // a better sloution needs to be found, better than calling db 2 times 
        if(CarShowroomUtils.isCommercialRegistrationNumberExists(carShowroom.getCommercial_registration_number(), carShowroomRepository)) {
             throw new ValidationException("Showroom with commercial registration number " + carShowroom.getCommercial_registration_number() + " already exists");
         }
@@ -43,19 +44,24 @@ public class CarShowRoomService {
     }
 
     // get showroom
+    @Transactional
     public CarShowroom getShowroom(String commercialRegistrationNumber) {
-        CarShowroom showroom = checkAndReturnShowRoom(commercialRegistrationNumber);
+        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoom(commercialRegistrationNumber, carShowroomRepository);
         return showroom;
     }
 
+    // soft delete showroom
+    @Transactional
     public CarShowroom deleteShowroom(String commercial_registration_number) {
-        CarShowroom showroom = checkAndReturnShowRoom(commercial_registration_number);
+        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoom(commercial_registration_number, carShowroomRepository);
         showroom.setDeleted(true);
         return carShowroomRepository.save(showroom);
     }
 
+    // update showroom
+    @Transactional
     public CarShowroom updateShowroom(String commercialRegistrationNumber, UpdateCarShowroomDTO updateDTO) {
-        CarShowroom showroom = checkAndReturnShowRoom(commercialRegistrationNumber);
+        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoom(commercialRegistrationNumber, carShowroomRepository);
         if (updateDTO.getContact_number() != null) {
             showroom.setContact_number(updateDTO.getContact_number());
         }
@@ -67,13 +73,5 @@ public class CarShowRoomService {
         }
         return carShowroomRepository.save(showroom);
     }
-    
-    private CarShowroom checkAndReturnShowRoom(String commercial_registration_number) {
-        CarShowroom showroom = carShowroomRepository.findCarShowroomByCommercialRegistrationNumber(commercial_registration_number);
-        if (showroom == null) {
-            throw new ResourceNotFoundException("Showroom not found");
-        }
-        return showroom;
-    }
-    
+        
 }
