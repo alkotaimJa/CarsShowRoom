@@ -21,6 +21,9 @@ public interface CarShowroomRepository extends JpaRepository<CarShowroom, Long> 
     @Query("SELECT cs FROM CarShowroom cs WHERE cs.deleted = false AND cs.commercial_registration_number = :commercial_registration_number")
     CarShowroom findCarShowroomByCommercialRegistrationNumberAndNotDeleted(String commercial_registration_number);
 
+    @Query("SELECT cs FROM CarShowroom cs WHERE cs.id = :showroomId AND cs.deleted = false")
+    CarShowroom findByIdAndDeleted(Long showroomId);
+
 }
 
     

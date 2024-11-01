@@ -39,13 +39,10 @@ public class CarService {
     @Transient
     public Page<CarShowroomDetailsDTO> listCars(Pageable pageable, String vin, String id, String maker, String model, String modelYear, String showroomName,String  contactNumber) {
         // check if id is coreact first
-        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoomById(id, carShowroomRepository);
+        CarShowroomUtils.checkAndReturnShowRoomById(id, carShowroomRepository);
         // if showroom exists, proceed to fetch cars
-        if (showroom!= null) {
-            return carRepository.findAllWithShowroomDetails(pageable,  vin, id,  maker, model, modelYear, showroomName, contactNumber);
-        }
-        // if id is not valid, return empty page
-        return Page.empty(pageable);
+         return carRepository.findAllWithShowroomDetails(pageable,  vin, id,  maker, model, modelYear, showroomName, contactNumber);
+
     }
 
     
