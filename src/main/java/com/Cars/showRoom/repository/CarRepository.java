@@ -14,7 +14,7 @@ import com.Cars.showRoom.DTO.CarShowroomDetailsDTO;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     @Query("SELECT new com.Cars.showRoom.DTO.CarShowroomDetailsDTO(" +
-       "c.vin, c.maker, c.model, c.modelYear, c.price, cs.contactNumber, cs.name) " +
+       "c.vin, c.maker, c.model, c.modelYear, c.price, cs.name, cs.contactNumber) " +
        "FROM Car c JOIN c.carShowroom cs " +
        "WHERE (:vin IS NULL OR c.vin LIKE :vin) " +
        "AND (:id IS NULL OR c.carShowroom.id = :id)"+
