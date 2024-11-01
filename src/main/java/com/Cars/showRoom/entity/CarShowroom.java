@@ -35,7 +35,7 @@ public class CarShowroom {
 
     @NotNull(message = "Contact number is required")
     @Pattern(regexp = "^[0-9]{1,15}$", message = "Contact number must be numeric and at most 15 digits")
-    @Column(name = "contact_number") // Ensure this column exists and matches the database schema
+    @Column(name = "contact_number")
     private String contactNumber;
 
     @Size(max = 255, message = "Address must not exceed 255 characters")
