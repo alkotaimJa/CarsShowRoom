@@ -1,5 +1,6 @@
 package com.Cars.showRoom.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +35,8 @@ public class CarShowroom {
 
     @NotNull(message = "Contact number is required")
     @Pattern(regexp = "^[0-9]{1,15}$", message = "Contact number must be numeric and at most 15 digits")
-    private String contact_number;
+    @Column(name = "contact_number") // Ensure this column exists and matches the database schema
+    private String contactNumber;
 
     @Size(max = 255, message = "Address must not exceed 255 characters")
     private String address;
@@ -46,7 +48,7 @@ public class CarShowroom {
         this.name = name;
         this.commercial_registration_number = commercial_registration_number;
         this.manager_name = manager_name;
-        this.contact_number = contact_number;
+        this.contactNumber = contact_number;
         this.address = address;
         this.deleted = false;
     }
@@ -91,11 +93,11 @@ public class CarShowroom {
     }
 
     public String getContact_number() {
-        return contact_number;
+        return contactNumber;
     }
 
     public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+        this.contactNumber = contact_number;
     }
 
     public String getAddress() {

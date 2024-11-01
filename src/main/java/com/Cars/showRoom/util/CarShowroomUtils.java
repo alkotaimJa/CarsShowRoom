@@ -4,6 +4,8 @@ import com.Cars.showRoom.entity.CarShowroom;
 import com.Cars.showRoom.exception.ResourceNotFoundException;
 import com.Cars.showRoom.repository.CarShowroomRepository;
 
+import jakarta.validation.ValidationException;
+
 public class CarShowroomUtils {
 
  private CarShowroomUtils() {
@@ -27,5 +29,18 @@ public class CarShowroomUtils {
         }
         return showroom;
     }
- 
+
+ // check if showroom exists and return it by it id
+ public static CarShowroom checkAndReturnShowRoomById(String id, CarShowroomRepository carShowroomRepository) {
+    try {
+        Long showroomId = Long.parseLong(id);
+        CarShowroom showroom = carShowroomRepository.findById(showroomId).orElseThrow(() -> 
+            new ResourceNotFoundException("Showroom not found")
+        );
+        return showroom;
+    } catch (NumberFormatException e) {
+        throw new ValidationException("Invalid ID format: ID must be a number", e);
+    }
+}
+
 }

@@ -1,5 +1,7 @@
 package com.Cars.showRoom.service;
 
+import java.beans.Transient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,9 +36,16 @@ public class CarService {
     }
 
     // list cars with show room detailes
-    public Page<CarShowroomDetailsDTO> listCars(Pageable pageable, String vin, String maker, String model, String modelYear, String showroomName,String  contactNumber) {
-        // check if null first
-        return carRepository.findAllWithShowroomDetails(pageable, vin, maker, model, (modelYear), showroomName, contactNumber);
+    @Transient
+    public Page<CarShowroomDetailsDTO> listCars(Pageable pageable, String vin, String id, String maker, String model, String modelYear, String showroomName,String  contactNumber) {
+        // check if id is coreact first
+        CarShowroom showroom = CarShowroomUtils.checkAndReturnShowRoomById(id, carShowroomRepository);
+        // if showroom exists, proceed to fetch cars
+        if (showroom!= null) {
+            return carRepository.findAllWithShowroomDetails(pageable,  vin, id,  maker, model, modelYear, showroomName, contactNumber);
+        }
+        // if id is not valid, return empty page
+        return Page.empty(pageable);
     }
 
     

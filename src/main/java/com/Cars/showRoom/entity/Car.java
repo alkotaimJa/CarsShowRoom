@@ -27,7 +27,8 @@ public class Car {
     @NotNull(message = "Model year is required")
     @Min(value = 1886, message = "Model year must be greater than or equal to 1886")
     @Max(value = 9999, message = "Model year must be less than or equal to 9999")
-    private Integer model_year;
+    @Column(name = "model_year") 
+    private Integer modelYear;
 
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
@@ -71,11 +72,11 @@ public class Car {
     }
 
     public Integer getModel_year() {
-        return model_year;
+        return modelYear;
     }
 
     public void setModel_year(Integer model_year) {
-        this.model_year = model_year;
+        this.modelYear = model_year;
     }
 
     public Double getPrice() {
