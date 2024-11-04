@@ -1,7 +1,7 @@
 # CarsShowRoom
 
 ## Description
-This project is a web app developed as part of an interview assignment. It allows users to manage car showrooms and their associated cars. It includes both backend and frontend tasks, focusing on Java and Spring Boot for the backend and Angular for the front.
+This project is a web app. It allows users to manage car showrooms and their associated cars. It includes both backend and frontend tasks, focusing on Java and Spring Boot for the backend and Angular for the front.
 
 ## Table of Contents
 1. [Getting Started](#getting-started)
