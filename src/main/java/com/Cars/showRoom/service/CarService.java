@@ -14,6 +14,7 @@ import com.Cars.showRoom.entity.CarShowroom;
 import com.Cars.showRoom.repository.CarRepository;
 import com.Cars.showRoom.repository.CarShowroomRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import com.Cars.showRoom.util.CarShowroomUtils;
@@ -36,7 +37,7 @@ public class CarService {
     }
 
     // list cars with show room detailes
-    @Transient
+    @Transactional
     public Page<CarShowroomDetailsDTO> listCars(Pageable pageable, String vin, String id, String maker, String model, String modelYear, String showroomName,String  contactNumber) {
         // check if id is coreact first
         CarShowroomUtils.checkAndReturnShowRoomById(id, carShowroomRepository);
